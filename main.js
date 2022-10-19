@@ -25,7 +25,7 @@ let generated = '';
 let running = false;
 const updateSliderValue = async () => {
     while (running) {
-        await new Promise(r => setTimeout(r, 150));
+        await new Promise(r => setTimeout(r, 100));
         document.getElementById('display-slider-value').innerHTML= sliderRandom.value; 
     }
 }
@@ -108,13 +108,13 @@ const startGenerator = () => {
 passType.addEventListener('change', (e) => handleTypeChange(parseInt(e.target.value)))
 
 // When holding slider to change
-sliderRandom.addEventListener('mousedown', () => {
+sliderRandom.addEventListener('pointerdown', () => {
     running = true;
     updateSliderValue();
 });
 
 // When releasing slider
-sliderRandom.addEventListener('mouseup', (e) => {
+sliderRandom.addEventListener('pointerup', (e) => {
     running = false;
     sliderRandomValue = parseInt(e.target.value)
 });
