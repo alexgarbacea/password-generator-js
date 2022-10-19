@@ -1,33 +1,42 @@
 //
 const displayPasswords = [];
-const checkPasswords = new Set();
+const checkPasswords   = new Set();
+
 const symbols = '!@#$%^&*()_+~`}{[]\:;?><,./-=';
 const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const numbers = '123456789';
 
 // HTML Elements
-const sliderRandom = document.getElementById('pass-slider');
-const hasNumbers   = document.getElementById('numbers');
-const hasSymbols   = document.getElementById('symbols');
-const passType     = document.getElementById('type');
-const generateBtn  = document.getElementById('generate');
-let clipboardBtn   = document.getElementById('copy-btn');
+const sliderRandom  = document.getElementById('pass-slider');
+const sliderDisplay = document.getElementById('display-slider-value');
+const hasNumbers    = document.getElementById('numbers');
+const hasSymbols    = document.getElementById('symbols');
+const passType      = document.getElementById('type');
+const generateBtn   = document.getElementById('generate');
+let clipboardBtn    = document.getElementById('copy-btn');
 
 // Vlaues
-const MIN_LENGTH = 3;
+const MIN_LENGTH      = 3;
 let sliderRandomValue = 15;
-let hasNumbersValue = true;
-let hasSymbolsValue = false;
-let passTypeValue = 0;
-let generated = '';
+let hasNumbersValue   = true;
+let hasSymbolsValue   = true;
+let passTypeValue     = 0;
+let generated         = '';
 
 // Update length value displayed to user in real time
 let running = false;
 const updateSliderValue = async () => {
     while (running) {
         await new Promise(r => setTimeout(r, 100));
-        document.getElementById('display-slider-value').innerHTML= sliderRandom.value; 
+        sliderDisplay.innerHTML= sliderRandom.value; 
     }
+}
+
+// Set slider value and display to user
+const setSliderValue = (value) => {
+    sliderRandom.value = value.toString()
+    sliderDisplay.innerHTML= sliderRandom.value;
+    sliderRandomValue = parseInt(value)
 }
 
 // Handle type change event
@@ -36,10 +45,14 @@ const handleTypeChange = (value) => {
     passTypeValue = value;
     const sectionForPass = document.getElementById('for-random');
     switch (value) {
+        // Password
         case 0:
+            setSliderValue(15)
             sectionForPass.style.display = 'flex';
             break;
+        // PIN
         case 1:
+            setSliderValue(4)
             sectionForPass.style.display = 'none';
             break;
         default:
@@ -83,20 +96,33 @@ const getColor = (c) => {
     else                                       return '#0572ec'
 }
 
-// Generate
+// Generate click event
 const startGenerator = () => {
+    const LOOP_LIMIT = 10;
     const displayHtml = document.getElementById('generated-output')
-    let generated = ''
-    passTypeValue === 0 ? generated = generatePassword() : generated = generatePin()
-    if (generated === '') return
+    let generatedPass = ''
+
+    let loopCount = 0;
+    // Try to generate unique results
+    do {
+        passTypeValue === 0 ? generatedPass = generatePassword() : generatedPass = generatePin();
+        loopCount++;
+    } while(checkPasswords.has(generatedPass) && loopCount < LOOP_LIMIT)
+
+    if (generatedPass === '') return
 
     displayHtml.innerHTML = ``
-    for (let c of generated) {
+    for (let c of generatedPass) {
         const whatColor = getColor(c)
         displayHtml.innerHTML += `<span class="generated-letter" style="color: ${whatColor}">${c}</span>`
     }
 
     displayHtml.innerHTML += `<div class="copy-btn" id="copy-btn" title="Copy to clipboard">📋</div>`
+    generated = generatedPass;
+    // Add to set
+    checkPasswords.add(generated)
+    // Add to history
+    displayPasswords.push({ value: generated, type: passTypeValue, time: new Date() })
 
     clipboardBtn = document.getElementById('copy-btn');
     // To copy to Clipboard
