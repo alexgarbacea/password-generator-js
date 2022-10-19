@@ -1,0 +1,140 @@
+body {
+    scroll-behavior: smooth;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: sans-serif;
+    background-color: #0A2D4D;
+    color: #FFFFFF;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10em;
+    gap: 2em;
+    text-align: center;
+}
+
+.generated-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.generate-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.generated-output {
+    position: relative;
+    word-break: break-all;
+    margin-bottom: 2em;
+    background-color: #fff;
+    padding-inline: 1em;
+    padding-block: .6em;
+    user-select: all;
+    border-radius: .5rem;
+    width: 35vw;
+    max-width: 35vw;
+    min-height: 1.2em;
+    
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.8em;
+    letter-spacing: 0.15rem;
+}
+
+.generated-letter {
+    font-family: Courier Prime Bits, monospace;
+}
+
+.pass-option, .for-random {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    flex-wrap: wrap;
+}
+
+.pass-option {
+    background-color: #0A253C;
+    padding: 2em;
+    border-radius: .3rem;
+    font-size: large;
+    margin-bottom: 2em;
+    user-select: none;
+    min-width: 35vw;
+}
+
+.slider-labels {
+    display: flex;
+    flex-direction: row;
+    gap: .7em;
+    padding-inline-end: 1em;
+}
+
+.slider-labels>*:last-child {
+    width: .2em;
+}
+
+.checkbox {
+    transform: scale(1.5);
+    margin-right: .5em;
+    accent-color: #0572ec;
+}
+
+.slider {
+    accent-color: #0572ec;
+    transform: scale(1.2);
+    margin-inline: .5em;
+}
+
+.button-generate {
+    background-color: #0572ec;
+    border-radius: 60px;
+    padding: 8px 24px;
+    margin-top: 2em;
+    width: 50%;
+    font-weight: 400;
+    font-size: large;
+    user-select: none;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+}
+
+.button-generate:hover {
+    transform: translateY(-.1em);
+    transition: all .1s ease-in-out;
+}
+
+.select {
+    border-radius: 30px;
+    border: 2px solid hsla(0,0%,100%,.2);
+    outline: none;
+    font-size: large;
+    padding: .5em;
+    width: 50%;
+    background-color: #0A2D4D;
+    color: #fff;
+}
+
+.copy-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: medium;
+    user-select: none;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1000px) {
+    .generated-output {
+        width: 50vw;
+    }
+}

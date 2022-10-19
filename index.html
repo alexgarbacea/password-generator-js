@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>🔑Password generator</title>
+    </head>
+    <body>
+        <main class="main-wrapper">
+            <h1>Password Generator</h1>
+            <section class="generate-wrapper">
+                <div class="generated-section">
+                    <div class="generated-output" id="generated-output">
+
+                    </div>
+                </div>
+                <small>Options</small>
+                <div class="generated-form">
+                    <section class="pass-option" id="general">
+                        <div class="slider-labels">
+                            <div>Length</div>
+                            <input id="pass-slider" class="slider" type="range" min="3" max="100" value="15" />
+                            <div id="display-slider-value">15</div>
+                        </div>
+                        <section class="for-random" id="for-random">
+                            <div>
+                                <input class="checkbox" type="checkbox" id="numbers" name="numbers" checked>
+                                <label for="numbers">Numbers</label>
+                            </div>
+                            <div>
+                                <input class="checkbox" type="checkbox" id="symbols" name="symbols">
+                                <label for="symbols">Symbols</label>
+                            </div>
+                        </section>
+                    </section>
+                    <small>Type</small>
+                    <select class="select" name="type" id="type">
+                        <option value="0">Password</option>
+                        <option value="1">PIN</option>
+                    </select>
+                    <div class="button-generate" id="generate">Generate</div>
+                </div>
+            </section>
+        </main>
+    </body>
+    <script src="main.js"></script>
+</html>
