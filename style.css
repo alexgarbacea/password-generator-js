@@ -32,7 +32,6 @@ body {
 
 .generated-output {
     position: relative;
-    word-break: break-all;
     margin-bottom: 2em;
     background-color: #fff;
     padding-inline: 1em;
@@ -43,6 +42,7 @@ body {
     max-width: 35vw;
     min-height: 1.2em;
     
+    word-break: break-all;
     color: #333;
     font-weight: 600;
     text-align: center;
@@ -132,6 +132,44 @@ body {
     font-size: medium;
     user-select: none;
     cursor: pointer;
+}
+
+.histroy-wrapper {
+    margin-top: 2em;
+    width: 100%;
+}
+
+.button-link {
+    text-decoration: underline;
+    cursor: pointer;
+    user-select: none;
+}
+
+.table-wrapper {
+    margin-top: 2em;
+    overflow: auto;
+    max-height: 15em;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    max-width: 2em;
+    word-break: break-all;
+}
+
+th {
+    background-color: #0A253C;
+}
+
+tr>td:first-child {
+    user-select: all;
 }
 
 @media only screen and (max-width: 1000px) {

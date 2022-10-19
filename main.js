@@ -13,6 +13,8 @@ const hasNumbers    = document.getElementById('numbers');
 const hasSymbols    = document.getElementById('symbols');
 const passType      = document.getElementById('type');
 const generateBtn   = document.getElementById('generate');
+const historyTable  = document.getElementById('history-table');
+const historyBtn    = document.getElementById('history-button');
 let clipboardBtn    = document.getElementById('copy-btn');
 
 // Vlaues
@@ -96,6 +98,20 @@ const getColor = (c) => {
     else                                       return '#0572ec'
 }
 
+// Return the name of the type
+const getTypeName = (t) => {
+    switch (t) {
+        // Password
+        case 0:
+            return 'Password'
+        // PIN
+        case 1:
+            return 'PIN'
+        default:
+            break;
+    }
+}
+
 // Generate click event
 const startGenerator = () => {
     const LOOP_LIMIT = 10;
@@ -122,11 +138,31 @@ const startGenerator = () => {
     // Add to set
     checkPasswords.add(generated)
     // Add to history
-    displayPasswords.push({ value: generated, type: passTypeValue, time: new Date() })
+    const now = new Date()
+    displayPasswords.push({ value: generated, type: passTypeValue, time: now })
 
     clipboardBtn = document.getElementById('copy-btn');
     // To copy to Clipboard
     clipboardBtn.addEventListener('click', () => navigator.clipboard.writeText(generated))
+
+    // Add to history display
+    historyTable.innerHTML += 
+    `<tr>
+    <td>${generated}</td>
+    <td>${getTypeName(passTypeValue)}</td>
+    <td>${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}</td>
+    </tr>`
+}
+
+// Toggle history display
+const toggleHistory = () => {
+    const current = document.getElementById('history-section')
+    if(current.style.display === 'none') {
+        current.style.display = 'block'
+    }
+    else {
+        current.style.display = 'none'
+    }
 }
 
 // Add event listeners for:
@@ -153,3 +189,6 @@ hasSymbols.addEventListener('change', (e) => { hasSymbolsValue = e.target.checke
 
 // When generating
 generateBtn.addEventListener('click', () => startGenerator())
+
+// When clicking on history
+historyBtn.addEventListener('click', () => toggleHistory())
